@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Heart from './Heart';
+import { numberWithCommas } from '../../../utils';
 
 const BoxStyled = styled.div`
     display: flex;
@@ -8,7 +9,8 @@ const BoxStyled = styled.div`
     padding: 15px;
     background-color: white;
     border: solid 1px #e1e1e1;
-    min-width: 230px;
+    width: 230px;
+    height: 350px;
 `;
 
 const ImgStyled = styled.img`
@@ -39,7 +41,13 @@ const PriceStyled = styled.div`
     color: #070707;
 `;
 
-function Product() {
+const Div = styled.div`
+  height: 90px;
+`;
+
+function Product({
+  img, name, price, size_x, size_y,
+}) {
   const [clicked, setClicked] = useState(false);
 
   function clickHeart() {
@@ -48,9 +56,14 @@ function Product() {
 
   return (
     <BoxStyled>
-      <ImgStyled src="/imgs/1.png" />
-      <TitleStyled>유로 601 페블 디자인테이블 1600</TitleStyled>
-      <PriceStyled>395,000원</PriceStyled>
+      <ImgStyled src={`/imgs/${img}`} />
+      <Div>
+        <TitleStyled>{name}</TitleStyled>
+        <PriceStyled>
+          {numberWithCommas(price)}
+          원
+        </PriceStyled>
+      </Div>
       <Heart onClick={clickHeart} clicked={clicked} />
     </BoxStyled>
   );
