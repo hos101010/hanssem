@@ -11,10 +11,10 @@ const Div = styled.div`
     margin-left: -10px;
 `;
 
-function Heart({ onClick, clicked }) {
+function Heart({ onClick, isClicked }) {
   return (
     <Div onClick={onClick}>
-      {clicked ? <FilledHeart /> : <EmptyHeart />}
+      {isClicked ? <FilledHeart /> : <EmptyHeart />}
     </Div>
   );
 }

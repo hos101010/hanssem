@@ -48,10 +48,10 @@ const Div = styled.div`
 function Product({
   img, name, price, size_x, size_y,
 }) {
-  const [clicked, setClicked] = useState(false);
+  const [isClicked, setClicked] = useState(false);
 
   function clickHeart() {
-    setClicked(!clicked);
+    setClicked(!isClicked);
   }
 
   return (
@@ -64,7 +64,7 @@ function Product({
           원
         </PriceStyled>
       </Div>
-      <Heart onClick={clickHeart} clicked={clicked} />
+      <Heart onClick={clickHeart} isClicked={isClicked} />
     </BoxStyled>
   );
 }

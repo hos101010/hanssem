@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
         let fetchedData = await products.findAllProducts();
         res.json(fetchedData[0]);
     } catch(err){
-        res.status(500).json({ error: error.toString() });
+        res.status(500).json({ error: err.toString() });
     }
 });
 
