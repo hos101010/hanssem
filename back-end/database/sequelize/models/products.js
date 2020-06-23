@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     size_x: DataTypes.DOUBLE,
     size_y: DataTypes.DOUBLE,
     price: DataTypes.BIGINT,
+    img: DataTypes.STRING,
   }, {
     charset: 'utf8',
     collate: 'utf8_unicode_ci',
