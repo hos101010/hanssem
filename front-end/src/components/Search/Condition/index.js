@@ -43,6 +43,28 @@ function Condition({
   const [confirmMsg, setConfirmMsg] = useState('');
   const [isDiffCondition, setIsDiffCondition] = useState(false);
 
+  function fetchProducts() {
+    axios.post(`${process.env.REACT_APP_BACK_URI}/products`)
+      .then((response) => {
+        switch (condition.sort) {
+          case 'lowPrice':
+            setProducts(orderAscByPrice(response.data));
+            break;
+          case 'highPrice':
+            setProducts(orderDescByPrice(response.data));
+            break;
+          case 'date':
+            setProducts(response.data);
+            break;
+          default:
+            console.log('err: no condition.sort case');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function fetchProductsWithCondition() {
     axios.post(`${process.env.REACT_APP_BACK_URI}/products/condition`, {
       condition,
@@ -83,9 +105,9 @@ function Condition({
     function changeConfirmMsg() {
       let tmp = '';
 
-      if (JSON.stringify(condition.price) !== JSON.stringify(initialCondition.price)) { tmp = ` 가격 : ${condition.price[0]}원~${condition.price[1]}원 `; }
-      if (JSON.stringify(condition.xSize) !== JSON.stringify(initialCondition.xSize)) { tmp += ` 가로 : ${condition.xSize[0]}cm~${condition.xSize[1]}cm `; }
-      if (JSON.stringify(condition.ySize) !== JSON.stringify(initialCondition.ySize)) { tmp += ` 세로 : ${condition.ySize[0]}cm~${condition.ySize[1]}cm `; }
+      if (JSON.stringify(condition.price) !== JSON.stringify(initialCondition.price)) { tmp = ` 가격:${condition.price[0]}원~${condition.price[1]}원 `; }
+      if (JSON.stringify(condition.xSize) !== JSON.stringify(initialCondition.xSize)) { tmp += ` 가로:${condition.xSize[0]}cm~${condition.xSize[1]}cm `; }
+      if (JSON.stringify(condition.ySize) !== JSON.stringify(initialCondition.ySize)) { tmp += ` 세로:${condition.ySize[0]}cm~${condition.ySize[1]}cm `; }
       if (condition.color) { tmp += ` 색상:${condition.color} `; }
       if (tmp !== confirmMsg) setConfirmMsg(tmp);
     }
@@ -95,6 +117,7 @@ function Condition({
 
   function resetCondition() {
     dispatchCondition({ type: 'reset' });
+    fetchProducts();
   }
 
   function clickButton(idx) {
@@ -108,10 +131,31 @@ function Condition({
 
   return (
     <Div>
+      {(isDiffCondition) ? (
+        <Confirm>
+          {confirmMsg}
+          <button
+            style={{
+              backgroundColor: '#008489', border: 0, borderRadius: '2rem', color: 'white', cursor: 'pointer',
+            }}
+            onClick={fetchProductsWithCondition}
+          >
+            검색
+          </button>
+          <button
+            style={{
+              backgroundColor: '#008489', border: 0, borderRadius: '2rem', color: 'white', cursor: 'pointer',
+            }}
+            onClick={resetCondition}
+          >
+            필터 삭제
+          </button>
+        </Confirm>
+      ) : null}
       <Total>
         총
         {' '}
-        {count}
+        <span>{count}</span>
         개
       </Total>
       <FlexWrap>
@@ -132,13 +176,7 @@ function Condition({
           );
         })}
       </FlexWrap>
-      {(isDiffCondition) ? (
-        <Confirm>
-          {confirmMsg}
-          <button onClick={fetchProductsWithCondition}>검색</button>
-          <button onClick={resetCondition}>필터 삭제</button>
-        </Confirm>
-      ) : null}
+
     </Div>
   );
 }
