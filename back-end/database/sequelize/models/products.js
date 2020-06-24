@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     size_y: DataTypes.DOUBLE,
     price: DataTypes.BIGINT,
     img: DataTypes.STRING,
+    color: DataTypes.STRING,
   }, {
     charset: 'utf8',
     collate: 'utf8_unicode_ci',
