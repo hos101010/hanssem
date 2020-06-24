@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 import Product from './Product';
-import { ERR } from '../../const/err';
 
 const Div = styled.div`
     display: flex;
@@ -14,24 +12,7 @@ const Div = styled.div`
     
 `;
 
-function ProductList() {
-  const [products, setProducts] = useState([]);
-  const [err, setErr] = useState(false);
-
-  function fetchProducts() {
-    axios.post(`${process.env.REACT_APP_BACK_URI}/products`)
-      .then((response) => {
-        setProducts([...response.data]);
-        setErr(false);
-      })
-      .catch(() => setErr(true));
-  }
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  if (err) return <div>{ERR.NETWORK}</div>;
+function ProductList({ products }) {
   return (
     <Div>
       {products.map((prod, i) => (
