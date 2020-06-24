@@ -111,7 +111,7 @@ function Slide({
   }
   function a() {}
   function setValue(val) {
-    if (info.tag == 'price') return `${numberWithCommas(val)}원`;
+    if (info.tag === 'price') return `${numberWithCommas(val)}원`;
     return `${numberWithCommas(val)}cm`;
   }
 

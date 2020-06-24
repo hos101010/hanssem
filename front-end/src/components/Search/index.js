@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import ProductList from '../ProductList';
 import Condition from './Condition';
+import { orderAscByPrice, orderDescByPrice } from './orderProducts';
 
 const FlexWrap = styled.div`
   display: flex;
@@ -48,23 +49,37 @@ function Search() {
   const [condition, dispatchCondition] = useReducer(useConditionReducer, initialCondition);
   const [products, setProducts] = useState([]);
 
-  function fetchProducts() {
+  useEffect(() => {
     axios.post(`${process.env.REACT_APP_BACK_URI}/products`)
       .then((response) => {
-        setProducts([...response.data]);
+        switch (condition.sort) {
+          case 'lowPrice':
+            setProducts(orderAscByPrice(response.data));
+            break;
+          case 'highPrice':
+            setProducts(orderDescByPrice(response.data));
+            break;
+          case 'date':
+            setProducts(response.data);
+            break;
+          default:
+            console.log('err: no condition.sort case');
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  }, [condition.sort]);
 
   return (
     <FlexWrap>
-      <Condition count={products.length} dispatchCondition={dispatchCondition} condition={condition} initialCondition={initialCondition} />
+      <Condition
+        setProducts={setProducts}
+        count={products.length}
+        dispatchCondition={dispatchCondition}
+        condition={condition}
+        initialCondition={initialCondition}
+      />
       {(products.length > 0) ? <ProductList products={products} /> : null}
     </FlexWrap>
   );

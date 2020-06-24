@@ -14,7 +14,6 @@ function ConditionBtn({
   const Modal = () => {
     if (children.includes('색상')) return <Color dispatchCondition={dispatchCondition} resetClicked={resetClicked} condition={condition} />;
     return <Boundary tag={children} dispatchCondition={dispatchCondition} resetClicked={resetClicked} condition={condition} />;
-    return null;
   };
 
   return (
