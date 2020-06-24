@@ -8,9 +8,8 @@ const Div = styled.div`
 `;
 
 function Header() {
-    return (
-    <Div>
-    </Div>
+  return (
+    <Div />
   );
 }
 

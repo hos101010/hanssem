@@ -8,9 +8,8 @@ const Div = styled.div`
 `;
 
 function LeftNav() {
-    return (
-    <Div>
-    </Div>
+  return (
+    <Div />
   );
 }
 

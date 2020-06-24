@@ -21,16 +21,14 @@ const ModalFooter = styled.div`
 `;
 
 export default function makeModal(Body, Footer) {
-  const Modal = () => {
-    return (
-        <ModalStyle>
-            {Body ? <Body /> : null}
-          <ModalFooter>
-            {Footer ? <Footer /> : null}
-          </ModalFooter>
-        </ModalStyle>
-    );
-  };
+  const Modal = () => (
+    <ModalStyle>
+      {Body ? <Body /> : null}
+      <ModalFooter>
+        {Footer ? <Footer /> : null}
+      </ModalFooter>
+    </ModalStyle>
+  );
 
   return Modal;
 }
