@@ -7,9 +7,8 @@ const Div = styled.div`
     justify-content: flex-start;
     align-content: flex-start;
     flex-wrap: wrap;
-    width: 1170px;
-    height: 80rem;
-    
+    width: 1050px;
+    height: 80rem;    
 `;
 
 function ProductList({ products }) {

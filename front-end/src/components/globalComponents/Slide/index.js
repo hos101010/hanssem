@@ -11,6 +11,7 @@ const FlexWrap = styled.div`
 
 const FlexRowWrap = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 const Div = styled.div`
@@ -55,7 +56,7 @@ const Track = styled.input.attrs((props) => ({
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 1rem;
-  background: green;
+  background: #006C70;
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
   }

@@ -6,19 +6,27 @@ import Sort from './Sort';
 import { orderAscByPrice, orderDescByPrice } from '../orderProducts';
 
 const Total = styled.div`
+  margin-top: 50px;
+  margin-left: 20px;
+  color: #626262;
+  font-weight: 500;
+  > span {
+    color: black;
+    font-weight: bold;
+  }
 `;
 
 const FlexWrap = styled.div`
   display: flex;
   > * {
-    margin: 7px;
+    margin: 0 7px;
   };
 `;
 
 const Div = styled.div`
     height: 95px;
     margin-bottom: 20px;
-    background-color: skyblue;
+    background-color: white;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -26,12 +34,17 @@ const Div = styled.div`
 
 const Confirm = styled.div`
   position: absolute;
-  background-color: white;
-  bottom:0;
+  background-color: #EEE;
+  top: 0;
   right: 0;
-  width: 600px;
-  height: 40px;
+  width: 670px;
+  height: 25px;
   text-align: right;
+  z-index: 1;
+  font-size: 14px;
+  * {
+    margin-left: 10px;
+  }
 `;
 
 const conditionName = ['가격', '가로사이즈', '세로사이즈', '색상'];

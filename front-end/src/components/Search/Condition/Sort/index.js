@@ -7,12 +7,13 @@ const Div = styled.div`
     > * {
         height: 20px;
         margin: 5px;
-        margin-top: 20px;
+        margin-top: 50px;
         color: #555555;
     }
 `;
 
 const A = styled.div`
+    margin-top: 50px;
     cursor: pointer;
     font-weight: ${(props) => (props.condition.sort === props.tag ? '900' : 'normal')};
     color: ${(props) => (props.condition.sort === props.tag ? 'black' : '#555555')};

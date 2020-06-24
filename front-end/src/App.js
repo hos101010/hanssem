@@ -7,9 +7,8 @@ import Search from './components/Search';
 
 const Div = styled.div`
   display: flex;
-  width: 1250px;
+  width: 1220px;
   margin: 0 auto;
-  background-color: yellow;
 `;
 
 function App() {

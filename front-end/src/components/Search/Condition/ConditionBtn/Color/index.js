@@ -53,8 +53,8 @@ function Color({
   );
   const Footer = () => (
     <>
-      <Button style={{ 'margin-top': 0 }} onClick={clickReset}>선택해제</Button>
-      <Button style={{ 'margin-top': 0 }} onClick={clickSave}>저장</Button>
+      <Button style={{ marginTop: 0 }} onClick={clickReset}>선택해제</Button>
+      <Button style={{ marginTop: 0 }} onClick={clickSave}>저장</Button>
     </>
   );
   const Modal = makeModal(Body, Footer);
