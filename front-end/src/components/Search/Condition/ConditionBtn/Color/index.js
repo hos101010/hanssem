@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiFillCheckCircle, AiOutlineCheckCircle } from 'react-icons/ai';
 import makeModal from '../../../../globalComponents/Modal';
@@ -10,7 +10,7 @@ const colors = ['black', 'white', 'brown', 'pink', 'red', 'navy', 'purple', 'dar
 const Div = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin-top: 50px;
+    margin-top: 25px;
     width: 205px;
     height: 100px;
 `;
@@ -28,11 +28,24 @@ const ColorStyle = styled.div`
 function Color({
   dispatchCondition, resetClicked, condition,
 }) {
-  const changeColor = (color) => dispatchCondition({ type: 'changeColor', color });
+  const [pickedColor, setPickedColor] = useState(condition.color);
+
+  const clickSave = () => {
+    dispatchCondition({ type: 'changeColor', color: pickedColor });
+    resetClicked();
+  };
+
+  const clickReset = () => {
+    setPickedColor(null);
+  };
+
+  const changeColor = (color) => {
+    setPickedColor(color);
+  };
 
   const Body = () => (
     <Div>
-      {colors.map((color) => ((color !== condition.color) ? <ColorStyle color={color} key={color} onClick={() => changeColor(color)} />
+      {colors.map((color) => ((color !== pickedColor) ? <ColorStyle color={color} key={color} onClick={() => changeColor(color)} />
         : (color === 'white') ? <AiOutlineCheckCircle key={color} size="47" />
           : <AiFillCheckCircle key={color} size="47" color={colorMatch[color]} />
       ))}
@@ -40,8 +53,8 @@ function Color({
   );
   const Footer = () => (
     <>
-      <Button onClick={() => changeColor(null)}>선택해제</Button>
-      <Button onClick={resetClicked}>닫기</Button>
+      <Button style={{ 'margin-top': 0 }} onClick={clickReset}>선택해제</Button>
+      <Button style={{ 'margin-top': 0 }} onClick={clickSave}>저장</Button>
     </>
   );
   const Modal = makeModal(Body, Footer);
