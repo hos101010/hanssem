@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-
 import styled from 'styled-components';
+import { numberWithCommas } from '../../../utils';
+import Button from '../../Search/Condition/ConditionBtn/Button.style';
 
 const FlexWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content:center;
 `;
+
+const FlexRowWrap = styled.div`
+  display: flex;
+`;
+
 const Div = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -34,12 +40,12 @@ const Range = styled.input.attrs({
   }
 `;
 
-const Track = styled.input.attrs({
+const Track = styled.input.attrs((props) => ({
   type: 'range',
-  min: '0',
-  max: '1000000',
-  step: '20000',
-})`
+  min: props.minVal,
+  max: props.maxVal,
+  step: props.step,
+}))`
   -webkit-appearance: none;
   position: absolute;
   margin: 0;
@@ -67,10 +73,19 @@ const Input = styled.input`
 
 let firstClickedButtonIsRight = null;
 
-function a() {}
-function Slide() {
-  const [left, setLeft] = useState(0);
-  const [right, setRight] = useState(1000000);
+function Slide({
+  dispatchCondition, initMin, initMax, info, resetClicked,
+}) {
+  const [left, setLeft] = useState(initMin);
+  const [right, setRight] = useState(initMax);
+
+  const clickSave = () => {
+    dispatchCondition({ type: info.type, min: left, max: right });
+    resetClicked();
+  };
+  const clickCancle = () => {
+    dispatchCondition({ type: info.type, min: info.minVal, max: info.maxVal });
+  };
 
   function moveLeft(e) {
     if (parseInt(right) >= parseInt(e.target.value)) setLeft(e.target.value);
@@ -94,34 +109,48 @@ function Slide() {
     if (firstClickedButtonIsRight === null) firstClickedButtonIsRight = true;
     moveRight(e);
   }
+  function a() {}
+  function setValue(val) {
+    if (info.tag == 'price') return `${numberWithCommas(val)}원`;
+    return `${numberWithCommas(val)}cm`;
+  }
 
   return (
     <FlexWrap>
-      <Div>
-        <Track
-          onChange={clickTrack}
-          onMouseUp={() => (firstClickedButtonIsRight = null)}
-        />
-        <Range
-          min="0"
-          max="980000"
-          step="20000"
-          onChange={(e) => moveLeft(e)}
-          value={left}
-        />
-        <Range
-          min="20000"
-          max="1000000"
-          step="20000"
-          onChange={(e) => moveRight(e)}
-          value={right}
-        />
-      </Div>
-      <div>
-        <Input type="text" onChange={a} value={`${left}원`} />
-        -
-        <Input type="text" onChange={a} value={`${right}원`} />
-      </div>
+      <FlexWrap>
+        <Div>
+          <Track
+            onChange={clickTrack}
+            onMouseUp={() => (firstClickedButtonIsRight = null)}
+            min={info.minVal}
+            max={info.maxVal}
+            step={info.step}
+          />
+          <Range
+            min={info.minVal}
+            max={info.maxVal - info.step}
+            step={info.step}
+            onChange={(e) => moveLeft(e)}
+            value={left}
+          />
+          <Range
+            min={info.minVal + info.step}
+            max={info.maxVal}
+            step={info.step}
+            onChange={(e) => moveRight(e)}
+            value={right}
+          />
+        </Div>
+        <div>
+          <Input type="text" onChange={a} value={setValue(left)} />
+          -
+          <Input type="text" onChange={a} value={setValue(right)} />
+        </div>
+      </FlexWrap>
+      <FlexRowWrap>
+        <Button onClick={clickCancle}>선택해제</Button>
+        <Button onClick={clickSave}>저장</Button>
+      </FlexRowWrap>
     </FlexWrap>
   );
 }

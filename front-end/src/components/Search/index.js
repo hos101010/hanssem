@@ -12,9 +12,9 @@ const FlexWrap = styled.div`
 
 const initialCondition = {
   sort: 'date',
-  price: null,
-  xSize: null,
-  ySize: null,
+  price: [0, 3000000],
+  xSize: [0, 500],
+  ySize: [0, 500],
   color: null,
 };
 
@@ -27,13 +27,13 @@ const useConditionReducer = (state, action) => {
       return { ...state, sort: action.sort };
     }
     case 'changePrice': {
-      return { ...state, price: [action.min, action.max] };
+      return { ...state, price: [parseInt(action.min), parseInt(action.max)] };
     }
     case 'changeXSize': {
-      return { ...state, xSize: [action.min, action.max] };
+      return { ...state, xSize: [parseInt(action.min), parseInt(action.max)] };
     }
     case 'changeYSize': {
-      return { ...state, ySize: [action.min, action.max] };
+      return { ...state, ySize: [parseInt(action.min), parseInt(action.max)] };
     }
     case 'changeColor': {
       return { ...state, color: action.color };
@@ -64,7 +64,7 @@ function Search() {
 
   return (
     <FlexWrap>
-      <Condition count={products.length} dispatchCondition={dispatchCondition} condition={condition} />
+      <Condition count={products.length} dispatchCondition={dispatchCondition} condition={condition} initialCondition={initialCondition} />
       {(products.length > 0) ? <ProductList products={products} /> : null}
     </FlexWrap>
   );

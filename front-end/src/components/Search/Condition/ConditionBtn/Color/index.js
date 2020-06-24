@@ -25,13 +25,6 @@ const ColorStyle = styled.div`
     cursor: pointer;
 `;
 
-const IconDiv = styled.div`
-    width: 40px;
-    height: 40px;
-    overflow: hidden;
-    background-color: yellow;
-`;
-
 function Color({
   dispatchCondition, resetClicked, condition,
 }) {
@@ -48,7 +41,7 @@ function Color({
   const Footer = () => (
     <>
       <Button onClick={() => changeColor(null)}>선택해제</Button>
-      <Button onClick={resetClicked}>확인</Button>
+      <Button onClick={resetClicked}>닫기</Button>
     </>
   );
   const Modal = makeModal(Body, Footer);

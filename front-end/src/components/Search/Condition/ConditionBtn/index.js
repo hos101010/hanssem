@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Size from './Size';
+import Boundary from './Boundary';
 import Color from './Color';
 import Button from './Button.style';
 
@@ -12,8 +12,8 @@ function ConditionBtn({
   children, onClick, dispatchCondition, isClicked, resetClicked, condition,
 }) {
   const Modal = () => {
-    if (children.includes('사이즈')) return <Size resetClicked={resetClicked} />;
     if (children.includes('색상')) return <Color dispatchCondition={dispatchCondition} resetClicked={resetClicked} condition={condition} />;
+    return <Boundary tag={children} dispatchCondition={dispatchCondition} resetClicked={resetClicked} condition={condition} />;
     return null;
   };
 
