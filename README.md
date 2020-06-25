@@ -19,7 +19,7 @@
 - styled-coponent
 - Express
 - Sequelize
-- Eocker
+- Docker
 - Mysql
 - Git
 - Eslint
